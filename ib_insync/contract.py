@@ -606,10 +606,11 @@ class ContractDetails:
         return sessions
 
     def __hash__(self):
-        if self.contract:
-            h = self.contract.__hash__()
-            return h * 10
-        raise ValueError(f"ContractDetails {self} can't be hashed. `contract` is None")
+        if self.contract is None:
+            raise ValueError(
+                f"ContractDetails {self} can't be hashed. `contract` is None"
+            )
+        return self.contract.__hash__() * 10
 
 
 @dataclass
